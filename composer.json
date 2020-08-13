@@ -1,0 +1,12 @@
+{
+    "name": "sid.maestre/php-oauth2",
+    "authors": [
+        {
+            "name": "SidneyAllen",
+            "email": "sid.maestre@xero.com"
+        }
+    ],
+    "require": {
+        "league/oauth2-client": "^2.5"
+    }
+}
