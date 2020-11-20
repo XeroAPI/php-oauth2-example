@@ -58,7 +58,7 @@ Launch your browser and navigate to http://localhost:8888/php-oauth2-example/ (o
 
 - The authorization flow will start automatically when you visit the above URL. (your index.php)
 - Grant access to your user account and select the Demo company to connect to.
-- The callback page is the same index.php and will execute the correct block of code to obtain an access token and call the organisation endpoint.
+- The callback page is the same index.php and will execute the correct block of code to obtain an access token, call the connections endpoint to GET your xero tenant id, GET your organisation details and PUT a new contact.
 
 ## License
 

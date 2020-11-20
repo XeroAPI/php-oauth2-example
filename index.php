@@ -20,7 +20,7 @@ $provider = new \League\OAuth2\Client\Provider\GenericProvider([
 if (!isset($_GET['code'])) {
 
     $options = [
-    	'scope' => ['openid email profile offline_access accounting.transactions accounting.settings']
+    	'scope' => ['openid email profile offline_access accounting.transactions accounting.settings accounting.contacts']
     ];
 
     // Fetch the authorization URL from the provider; this returns the
@@ -70,7 +70,7 @@ if (!isset($_GET['code'])) {
         // the xero-tentant-id header is required
         // the accept header can be either 'application/json' or 'application/xml'
         $options['headers']['xero-tenant-id'] = $xeroTenantIdArray[0]['tenantId'];
-        $options['headers']['Accept'] = 'application/json';        
+        $options['headers']['Accept'] = 'application/xml';        
         
         $request = $provider->getAuthenticatedRequest(
             'GET',
@@ -82,6 +82,22 @@ if (!isset($_GET['code'])) {
         echo 'Organisation details:<br><textarea width: "300px"  height: 150px; row="50" cols="40">';
         var_export($provider->getParsedResponse($request));
         echo '</textarea>';
+
+
+        $data = "<Contacts><Contact><Name>ABC Limited</Name></Contact></Contacts>";
+        $options['body'] = $data ;
+
+        $contactRequest = $provider->getAuthenticatedRequest(
+            'PUT',
+            'https://api.xero.com/api.xro/2.0/Contacts',
+            $accessToken,
+            $options
+        );
+
+        echo '<br><hr><br>New Contact:<br><textarea width: "300px"  height: 150px; row="50" cols="40">';
+        var_export($provider->getParsedResponse($contactRequest));
+        echo '</textarea>';
+
     } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
         // Failed to get the access token or user details.
         exit($e->getMessage());
